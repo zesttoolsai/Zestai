@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ToolZest - Free online tools for text, passwords, JSON and everyday tasks.">
+  <meta name="keywords" content="online tools, text tools, word counter, password generator, JSON formatter">
+  <meta name="author" content="ToolZest">
+  <title>ToolZest - Free Online Tools</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      padding: 22px 16px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 14px;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 35px auto 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #64748b;
+      font-size: 17px;
+    }
+
+    .tools {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .tool-card h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .tool-card p {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    textarea,
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      border: none;
+      background: #2563eb;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 3px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .result {
+      background: #f1f5f9;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 10px;
+      min-height: 45px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #111827;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        flex-direction: column;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">ToolZest</div>
+    <nav>
+      <a href="#tools">Tools</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Free Online Tools</h1>
+  <p>Simple, fast and useful tools for your everyday digital tasks.</p>
+</section>
+
+<section class="tools" id="tools">
+
+  <!-- Word Counter -->
+  <div class="tool-card">
+    <h2>📝 Word Counter</h2>
+    <p>Count words, characters and sentences instantly.</p>
+
+    <textarea id="textInput" placeholder="Type or paste your text here..." oninput="countText()"></textarea>
+
+    <div class="result" id="textResult">
+      Words: 0
+      Characters: 0
+      Sentences: 0
+    </div>
+  </div>
+
+  <!-- Case Converter -->
+  <div class="tool-card">
+    <h2>🔤 Case Converter</h2>
+    <p>Convert your text to upper, lower or title case.</p>
+
+    <textarea id="caseInput" placeholder="Enter text here..."></textarea>
+
+    <button onclick="convertCase('upper')">UPPERCASE</button>
+    <button onclick="convertCase('lower')">lowercase</button>
+    <button onclick="convertCase('title')">Title Case</button>
+
+    <div class="result" id="caseResult"></div>
+  </div>
+
+  <!-- Password Generator -->
+  <div class="tool-card">
+    <h2>🔐 Password Generator</h2>
+    <p>Create a strong random password.</p>
+
+    <input type="number" id="passwordLength" value="16" min="6" max="50">
+
+    <button onclick="generatePassword()">Generate Password</button>
+
+    <div class="result" id="passwordResult"></div>
+  </div>
+
+  <!-- JSON Formatter -->
+  <div class="tool-card">
+    <h2>📦 JSON Formatter</h2>
+    <p>Format and validate JSON data quickly.</p>
+
+    <textarea id="jsonInput" placeholder='Example: {"name":"ToolZest","free":true}'></textarea>
+
+    <button onclick="formatJSON()">Format JSON</button>
+
+    <div class="result" id="jsonResult"></div>
+  </div>
+
+  <!-- Text Reverser -->
+  <div class="tool-card">
+    <h2>🔄 Text Reverser</h2>
+    <p>Reverse your text instantly.</p>
+
+    <textarea id="reverseInput" placeholder="Enter text..."></textarea>
+
+    <button onclick="reverseText()">Reverse Text</button>
+
+    <div class="result" id="reverseResult"></div>
+  </div>
+
+  <!-- URL Encoder -->
+  <div class="tool-card">
+    <h2>🔗 URL Encoder</h2>
+    <p>Encode or decode text for URLs.</p>
+
+    <textarea id="urlInput" placeholder="Enter URL or text..."></textarea>
+
+    <button onclick="encodeURL()">Encode</button>
+    <button onclick="decodeURL()">Decode</button>
+
+    <div class="result" id="urlResult"></div>
+  </div>
+
+  <!-- About -->
+  <div class="tool-card full" id="about">
+    <h2>About ToolZest</h2>
+    <p>
+      ToolZest is a free online tools website designed to make common
+      digital tasks easier. Our goal is to provide simple, fast and
+      easy-to-use tools for everyone.
+    </p>
+  </div>
+
+</section>
+
+<footer id="contact">
+  <p>© 2026 ToolZest. All rights reserved.</p>
+  <p>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Contact</a>
+  </p>
+</footer>
+
+<script>
+
+function countText() {
+  const text = document.getElementById("textInput").value;
+
+  const words = text.trim() === ""
+    ? 0
+    : text.trim().split(/\s+/).length;
+
+  const characters = text.length;
+
+  const sentences = text.trim() === ""
+    ? 0
+    : (text.match(/[.!?]+/g) || []).length;
+
+  document.getElementById("textResult").textContent =
+    "Words: " + words +
+    "\nCharacters: " + characters +
+    "\nSentences: " + sentences;
+}
+
+function convertCase(type) {
+  const text = document.getElementById("caseInput").value;
+  let result = "";
+
+  if (type === "upper") {
+    result = text.toUpperCase();
+  }
+
+  if (type === "lower") {
+    result = text.toLowerCase();
+  }
+
+  if (type === "title") {
+    result = text.toLowerCase().replace(/\b\w/g, function(letter) {
+      return letter.toUpperCase();
+    });
+  }
+
+  document.getElementById("caseResult").textContent = result;
+}
+
+function generatePassword() {
+  const length = Number(document.getElementById("passwordLength").value);
+
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+    "abcdefghijklmnopqrstuvwxyz" +
+    "0123456789!@#$%^&*()_+";
+
+  let password = "";
+
+  for (let i = 0; i < length; i++) {
+    password += chars.charAt(
+      Math.floor(Math.random() * chars.length)
+    );
+  }
+
+  document.getElementById("passwordResult").textContent = password;
+}
+
+function formatJSON() {
+  const input = document.getElementById("jsonInput").value;
+
+  try {
+    const parsed = JSON.parse(input);
+
+    document.getElementById("jsonResult").textContent =
+      JSON.stringify(parsed, null, 2);
+  } catch (error) {
+    document.getElementById("jsonResult").textContent =
+      "Invalid JSON. Please check your input.";
+  }
+}
+
+function reverseText() {
+  const text = document.getElementById("reverseInput").value;
+
+  document.getElementById("reverseResult").textContent =
+    text.split("").reverse().join("");
+}
+
+function encodeURL() {
+  const text = document.getElementById("urlInput").value;
+
+  document.getElementById("urlResult").textContent =
+    encodeURIComponent(text);
+}
+
+function decodeURL() {
+  const text = document.getElementById("urlInput").value;
+
+  try {
+    document.getElementById("urlResult").textContent =
+      decodeURIComponent(text);
+  } catch (error) {
+    document.getElementById("urlResult").textContent =
+      "Invalid encoded text.";
+  }
+}
+
+</script>
+
+</body>
+  </html>
